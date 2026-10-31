@@ -2,260 +2,597 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Materi Basis Data - Kelas XII SMK</title>
-    <link rel="stylesheet" href="../style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Belajar Basis Data - Kelas XII SMK</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: #0f172a;
+    color: #1e293b;
+    min-height: 100vh;
+}
+
+header {
+    background: #172554;
+    color: white;
+    padding: 18px 6%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header h3 {
+    color: white;
+}
+
+header span {
+    color: #93c5fd;
+    font-size: 13px;
+}
+
+.presentation {
+    max-width: 1050px;
+    width: 90%;
+    min-height: 570px;
+    background: white;
+    margin: 35px auto 20px;
+    border-radius: 20px;
+    padding: 45px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 20px 60px #0005;
+}
+
+.progress {
+    height: 6px;
+    background: #e2e8f0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+}
+
+#progressBar {
+    height: 100%;
+    width: 0%;
+    background: #3b82f6;
+    transition: .4s;
+}
+
+.slide {
+    display: none;
+    animation: muncul .4s ease;
+}
+
+.slide.active {
+    display: block;
+}
+
+@keyframes muncul {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.tag {
+    display: inline-block;
+    background: #dbeafe;
+    color: #1d4ed8;
+    padding: 8px 15px;
+    border-radius: 30px;
+    font-size: 12px;
+    font-weight: bold;
+    margin-bottom: 22px;
+}
+
+h1 {
+    font-size: 38px;
+    color: #172554;
+    margin-bottom: 20px;
+}
+
+h2 {
+    color: #1d4ed8;
+    margin: 18px 0 10px;
+}
+
+h3 {
+    color: #1e40af;
+    margin-bottom: 10px;
+}
+
+p {
+    line-height: 1.8;
+    margin-bottom: 12px;
+}
+
+ul {
+    padding-left: 25px;
+    line-height: 2;
+}
+
+.cover {
+    text-align: center;
+    padding: 55px 10px;
+}
+
+.cover h1 {
+    font-size: 65px;
+    color: #2563eb;
+    margin: 15px;
+}
+
+.cover h2 {
+    color: #475569;
+}
+
+.icon-big {
+    font-size: 90px;
+    margin: 20px;
+}
+
+.card {
+    background: #f1f5f9;
+    border-left: 5px solid #2563eb;
+    border-radius: 12px;
+    padding: 22px;
+    margin: 15px 0;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+}
+
+.grid .card {
+    margin: 0;
+}
+
+.highlight {
+    background: #eff6ff;
+    border-radius: 12px;
+    padding: 20px;
+    margin-top: 20px;
+    color: #1e40af;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+}
+
+th, td {
+    border: 1px solid #cbd5e1;
+    padding: 13px;
+    text-align: left;
+}
+
+th {
+    background: #1d4ed8;
+    color: white;
+}
+
+.table-wrap {
+    overflow-x: auto;
+}
+
+.code {
+    background: #172554;
+    color: #86efac;
+    padding: 22px;
+    border-radius: 12px;
+    margin: 15px 0;
+    overflow-x: auto;
+    white-space: pre-wrap;
+    line-height: 1.8;
+}
+
+button, .link-button {
+    background: #2563eb;
+    color: white;
+    border: none;
+    border-radius: 9px;
+    padding: 13px 22px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    transition: .2s;
+}
+
+button:hover, .link-button:hover {
+    background: #1e40af;
+    transform: translateY(-2px);
+}
+
+button:disabled {
+    opacity: .4;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 25px;
+    color: white;
+    margin: 25px auto 40px;
+}
+
+#slideNumber {
+    font-weight: bold;
+}
+
+@media(max-width:600px) {
+    .presentation {
+        padding: 28px 20px;
+        min-height: 550px;
+    }
+
+    h1 {
+        font-size: 28px;
+    }
+
+    .cover h1 {
+        font-size: 43px;
+    }
+
+    .grid {
+        grid-template-columns: 1fr;
+    }
+
+    header {
+        padding: 15px;
+    }
+
+    header span {
+        font-size: 10px;
+    }
+
+    .controls {
+        gap: 10px;
+    }
+}
+</style>
 </head>
+
 <body>
 
-<header class="topbar">
-    <div class="brand">📚 INFORMATIKA XII</div>
-    <div class="top-label">PEMBELAJARAN BASIS DATA</div>
+<header>
+    <h3>📚 INFORMATIKA XII</h3>
+    <span>PEMBELAJARAN BASIS DATA</span>
 </header>
 
 <main class="presentation">
 
-    <div class="progress">
-        <div id="progressBar"></div>
+<div class="progress">
+    <div id="progressBar"></div>
+</div>
+
+<!-- SLIDE 1 -->
+<section class="slide active">
+    <div class="cover">
+        <span class="tag">MATERI INFORMATIKA KELAS XII SMK</span>
+
+        <h1>BASIS DATA</h1>
+        <h2>Database Management System</h2>
+
+        <p>
+            Mengenal konsep, komponen, fungsi,
+            dan pengelolaan database.
+        </p>
+
+        <div class="icon-big">🗄️</div>
+
+        <button onclick="nextSlide()">Mulai Belajar →</button>
+    </div>
+</section>
+
+<!-- SLIDE 2 -->
+<section class="slide">
+    <span class="tag">01 / PENGENALAN</span>
+    <h1>Apa Itu Basis Data?</h1>
+
+    <p>
+        Basis data atau database adalah kumpulan data
+        yang disimpan secara terstruktur di dalam
+        komputer sehingga mudah diakses, dikelola,
+        dicari, dan diperbarui.
+    </p>
+
+    <div class="card">
+        <h3>Contoh Basis Data</h3>
+        <ul>
+            <li>Database data siswa sekolah.</li>
+            <li>Database nilai dan absensi.</li>
+            <li>Database pelanggan toko online.</li>
+            <li>Database transaksi perbankan.</li>
+        </ul>
     </div>
 
-    <section class="slide active">
-        <div class="cover">
-            <span class="tag">MATERI INFORMATIKA KELAS XII SMK</span>
-            <h1>BASIS DATA</h1>
-            <h2>Database Management System</h2>
-            <p>
-                Mengenal konsep, komponen, fungsi, dan
-                pengelolaan database dalam dunia teknologi.
-            </p>
-            <div class="database-icon">🗄️</div>
-            <button onclick="nextSlide()">Mulai Belajar →</button>
-        </div>
-    </section>
+    <div class="highlight">
+        💡 Contoh: Ketika sekolah menyimpan seluruh
+        data siswa di komputer, sekolah sedang
+        menggunakan sistem basis data.
+    </div>
+</section>
 
-    <section class="slide">
-        <span class="tag">01 / PENGENALAN</span>
-        <h1>Apa Itu Basis Data?</h1>
+<!-- SLIDE 3 -->
+<section class="slide">
+    <span class="tag">02 / TUJUAN</span>
+    <h1>Tujuan dan Manfaat Basis Data</h1>
+
+    <div class="grid">
+        <div class="card">
+            <h3>📁 Penyimpanan</h3>
+            <p>Menyimpan data secara terorganisir.</p>
+        </div>
+
+        <div class="card">
+            <h3>🔎 Pencarian</h3>
+            <p>Mempermudah pencarian informasi.</p>
+        </div>
+
+        <div class="card">
+            <h3>🔒 Keamanan</h3>
+            <p>Membantu menjaga data dari akses tidak sah.</p>
+        </div>
+
+        <div class="card">
+            <h3>⚡ Efisiensi</h3>
+            <p>Mempercepat proses pengolahan data.</p>
+        </div>
+    </div>
+</section>
+
+<!-- SLIDE 4 -->
+<section class="slide">
+    <span class="tag">03 / KOMPONEN</span>
+    <h1>Komponen Basis Data</h1>
+
+    <div class="card">
+        <h3>1. Hardware</h3>
+        <p>Perangkat keras seperti komputer dan server.</p>
+
+        <h3>2. Software</h3>
+        <p>Program pengelola database seperti MySQL.</p>
+
+        <h3>3. Data</h3>
+        <p>Informasi yang disimpan di dalam database.</p>
+
+        <h3>4. Brainware</h3>
+        <p>Manusia yang menggunakan sistem database.</p>
+
+        <h3>5. Prosedur</h3>
+        <p>Aturan dan langkah untuk mengelola database.</p>
+    </div>
+</section>
+
+<!-- SLIDE 5 -->
+<section class="slide">
+    <span class="tag">04 / STRUKTUR DATABASE</span>
+    <h1>Tabel, Field, dan Record</h1>
+
+    <p>Perhatikan contoh tabel data siswa berikut:</p>
+
+    <div class="table-wrap">
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Nama</th>
+                <th>Kelas</th>
+                <th>Jurusan</th>
+            </tr>
+            <tr>
+                <td>001</td>
+                <td>Andi</td>
+                <td>XII</td>
+                <td>RPL</td>
+            </tr>
+            <tr>
+                <td>002</td>
+                <td>Budi</td>
+                <td>XII</td>
+                <td>TKJ</td>
+            </tr>
+            <tr>
+                <td>003</td>
+                <td>Siti</td>
+                <td>XII</td>
+                <td>DKV</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="card">
+        <p><b>Tabel:</b> Keseluruhan kumpulan data siswa.</p>
+        <p><b>Field:</b> Kolom ID, Nama, Kelas, dan Jurusan.</p>
+        <p><b>Record:</b> Satu baris data siswa.</p>
+    </div>
+</section>
+
+<!-- SLIDE 6 -->
+<section class="slide">
+    <span class="tag">05 / KUNCI DATABASE</span>
+    <h1>Primary Key dan Foreign Key</h1>
+
+    <div class="card">
+        <h2>🔑 Primary Key</h2>
         <p>
-            Basis data (database) adalah kumpulan data yang
-            disimpan secara terstruktur di dalam komputer
-            sehingga mudah diakses, dikelola, dicari,
-            dan diperbarui.
+            Field yang menjadi identitas unik setiap
+            record dalam tabel.
         </p>
+        <p>Contoh: ID_Siswa.</p>
+    </div>
 
-        <div class="info-card">
-            <h3>Contoh dalam kehidupan sehari-hari</h3>
-            <ul>
-                <li>Database data siswa di sekolah.</li>
-                <li>Database nilai dan absensi siswa.</li>
-                <li>Database pelanggan toko online.</li>
-                <li>Database transaksi perbankan.</li>
-            </ul>
-        </div>
-
-        <div class="question">
-            💡 Tahukah kamu?
-            <p>
-                Ketika sekolah menyimpan data seluruh siswa
-                dalam komputer, sekolah tersebut sedang
-                menggunakan konsep basis data.
-            </p>
-        </div>
-    </section>
-
-    <section class="slide">
-        <span class="tag">02 / TUJUAN</span>
-        <h1>Tujuan dan Manfaat Basis Data</h1>
-
-        <div class="grid">
-            <div class="info-card">
-                <h3>📁 Penyimpanan</h3>
-                <p>Menyimpan data secara terorganisir.</p>
-            </div>
-            <div class="info-card">
-                <h3>🔎 Pencarian</h3>
-                <p>Mempermudah pencarian informasi.</p>
-            </div>
-            <div class="info-card">
-                <h3>🔒 Keamanan</h3>
-                <p>Membantu melindungi data dari akses tidak sah.</p>
-            </div>
-            <div class="info-card">
-                <h3>⚡ Efisiensi</h3>
-                <p>Mempercepat pengolahan data.</p>
-            </div>
-        </div>
-    </section>
-
-    <section class="slide">
-        <span class="tag">03 / KOMPONEN</span>
-        <h1>Komponen Basis Data</h1>
-        <p>Dalam sebuah sistem basis data terdapat beberapa komponen penting:</p>
-
-        <div class="info-card">
-            <h3>1. Hardware</h3>
-            <p>Perangkat keras seperti komputer dan server.</p>
-            <h3>2. Software</h3>
-            <p>Program untuk mengelola database, seperti MySQL.</p>
-            <h3>3. Data</h3>
-            <p>Informasi yang disimpan dalam database.</p>
-            <h3>4. Brainware</h3>
-            <p>Manusia yang menggunakan dan mengelola database.</p>
-            <h3>5. Database Administrator</h3>
-            <p>Orang yang bertanggung jawab mengelola database.</p>
-        </div>
-    </section>
-
-    <section class="slide">
-        <span class="tag">04 / STRUKTUR DATA</span>
-        <h1>Tabel, Field, dan Record</h1>
-        <p>Ketiga istilah ini merupakan bagian penting dalam database relasional.</p>
-
-        <div class="table-wrap">
-            <table>
-                <tr>
-                    <th>ID</th>
-                    <th>Nama</th>
-                    <th>Kelas</th>
-                    <th>Jurusan</th>
-                </tr>
-                <tr>
-                    <td>001</td>
-                    <td>Andi</td>
-                    <td>XII</td>
-                    <td>RPL</td>
-                </tr>
-                <tr>
-                    <td>002</td>
-                    <td>Budi</td>
-                    <td>XII</td>
-                    <td>TKJ</td>
-                </tr>
-                <tr>
-                    <td>003</td>
-                    <td>Siti</td>
-                    <td>XII</td>
-                    <td>DKV</td>
-                </tr>
-            </table>
-        </div>
-
-        <div class="info-card">
-            <p><b>Tabel:</b> Keseluruhan kumpulan data siswa.</p>
-            <p><b>Field:</b> Kolom ID, Nama, Kelas, dan Jurusan.</p>
-            <p><b>Record:</b> Satu baris data siswa.</p>
-        </div>
-    </section>
-
-    <section class="slide">
-        <span class="tag">05 / KUNCI DATABASE</span>
-        <h1>Primary Key dan Foreign Key</h1>
-
-        <div class="info-card">
-            <h2>🔑 Primary Key</h2>
-            <p>
-                Field yang digunakan sebagai identitas unik
-                setiap record dalam sebuah tabel.
-            </p>
-            <p>Contoh: NIS atau ID_Siswa.</p>
-        </div>
-
-        <div class="info-card">
-            <h2>🔗 Foreign Key</h2>
-            <p>
-                Field yang menghubungkan suatu tabel dengan
-                tabel lainnya melalui primary key.
-            </p>
-            <p>Contoh: ID_Kelas pada tabel siswa.</p>
-        </div>
-    </section>
-
-    <section class="slide">
-        <span class="tag">06 / JENIS DATABASE</span>
-        <h1>Jenis-Jenis Database</h1>
-
-        <div class="grid">
-            <div class="info-card">
-                <h3>Relasional</h3>
-                <p>Menyimpan data dalam bentuk tabel.</p>
-                <small>Contoh: MySQL, PostgreSQL.</small>
-            </div>
-            <div class="info-card">
-                <h3>NoSQL</h3>
-                <p>Menyimpan data dengan struktur yang fleksibel.</p>
-                <small>Contoh: MongoDB.</small>
-            </div>
-            <div class="info-card">
-                <h3>Hierarkis</h3>
-                <p>Mengorganisasi data dalam bentuk pohon.</p>
-            </div>
-            <div class="info-card">
-                <h3>Jaringan</h3>
-                <p>Memungkinkan hubungan data yang lebih kompleks.</p>
-            </div>
-        </div>
-    </section>
-
-    <section class="slide">
-        <span class="tag">07 / SQL</span>
-        <h1>Mengenal SQL</h1>
+    <div class="card">
+        <h2>🔗 Foreign Key</h2>
         <p>
-            SQL (Structured Query Language) adalah bahasa
-            yang digunakan untuk mengelola dan mengakses
-            database relasional.
+            Field yang menghubungkan suatu tabel
+            dengan tabel lainnya.
         </p>
+        <p>Contoh: ID_Kelas dalam tabel siswa.</p>
+    </div>
+</section>
 
-        <div class="code-box">
-            <p>-- Menampilkan semua data siswa</p>
-            <code>SELECT * FROM siswa;</code>
-            <br><br>
-            <p>-- Menambahkan data siswa</p>
-            <code>
+<!-- SLIDE 7 -->
+<section class="slide">
+    <span class="tag">06 / JENIS DATABASE</span>
+    <h1>Jenis-Jenis Database</h1>
+
+    <div class="grid">
+        <div class="card">
+            <h3>Relasional</h3>
+            <p>Data disimpan dalam bentuk tabel.</p>
+            <small>Contoh: MySQL, PostgreSQL.</small>
+        </div>
+
+        <div class="card">
+            <h3>NoSQL</h3>
+            <p>Data disimpan dengan struktur fleksibel.</p>
+            <small>Contoh: MongoDB.</small>
+        </div>
+
+        <div class="card">
+            <h3>Hierarkis</h3>
+            <p>Data disusun dalam bentuk pohon.</p>
+        </div>
+
+        <div class="card">
+            <h3>Jaringan</h3>
+            <p>Data dapat memiliki hubungan kompleks.</p>
+        </div>
+    </div>
+</section>
+
+<!-- SLIDE 8 -->
+<section class="slide">
+    <span class="tag">07 / SQL</span>
+    <h1>Mengenal SQL</h1>
+
+    <p>
+        SQL (Structured Query Language) merupakan
+        bahasa yang digunakan untuk mengelola
+        dan mengakses database relasional.
+    </p>
+
+    <div class="code">
+-- Menampilkan data
+SELECT * FROM siswa;
+
+-- Menambahkan data
 INSERT INTO siswa (id, nama)
 VALUES (4, 'Dina');
-            </code>
-            <br><br>
-            <p>-- Mengubah nama siswa</p>
-            <code>
+
+-- Mengubah data
 UPDATE siswa
 SET nama = 'Rina'
 WHERE id = 4;
-            </code>
-        </div>
+    </div>
 
-        <div class="question">
-            💡 SELECT digunakan untuk mengambil atau menampilkan data.
-        </div>
-    </section>
+    <div class="highlight">
+        💡 SELECT digunakan untuk mengambil
+        atau menampilkan data dari tabel.
+    </div>
+</section>
 
-    <section class="slide">
-        <span class="tag">08 / KESIMPULAN</span>
-        <h1>Kesimpulan Pembelajaran</h1>
+<!-- SLIDE 9 -->
+<section class="slide">
+    <span class="tag">08 / KESIMPULAN</span>
+    <h1>Kesimpulan Pembelajaran</h1>
 
-        <div class="info-card">
-            <p>✓ Basis data merupakan kumpulan data terstruktur.</p>
-            <p>✓ Database mempermudah penyimpanan dan pengolahan data.</p>
-            <p>✓ Tabel terdiri dari field dan record.</p>
-            <p>✓ Primary Key dan Foreign Key membantu menghubungkan data.</p>
-            <p>✓ SQL digunakan untuk mengelola database relasional.</p>
-        </div>
+    <div class="card">
+        <p>✓ Basis data adalah kumpulan data terstruktur.</p>
+        <p>✓ Database mempermudah penyimpanan data.</p>
+        <p>✓ Tabel terdiri dari field dan record.</p>
+        <p>✓ Primary Key mengidentifikasi record secara unik.</p>
+        <p>✓ Foreign Key menghubungkan tabel.</p>
+        <p>✓ SQL digunakan untuk mengelola database relasional.</p>
+    </div>
 
-        <h2>🎉 Selamat! Materi telah selesai.</h2>
-        <p>Silakan lanjutkan ke latihan soal untuk menguji pemahamanmu.</p>
-        <a class="button-link" href="../latihan/index.html">
-            Mulai Latihan Soal →
-        </a>
-    </section>
+    <h2>🎉 Materi Selesai!</h2>
+
+    <p>
+        Sekarang saatnya menguji pemahaman
+        dengan mengerjakan latihan soal.
+    </p>
+
+    <a href="latihan.html" class="link-button">
+        Mulai Latihan Soal →
+    </a>
+</section>
 
 </main>
 
-<footer class="controls">
+<div class="controls">
     <button id="prevBtn" onclick="prevSlide()">← Sebelumnya</button>
     <span id="slideNumber">1 / 9</span>
     <button id="nextBtn" onclick="nextSlide()">Selanjutnya →</button>
-</footer>
+</div>
 
-<script src="script.js"></script>
+<script>
+let currentSlide = 0;
+
+const slides = document.querySelectorAll(".slide");
+const totalSlides = slides.length;
+
+function showSlide(index) {
+
+    if (index < 0 || index >= totalSlides) return;
+
+    slides.forEach(slide => {
+        slide.classList.remove("active");
+    });
+
+    slides[index].classList.add("active");
+
+    currentSlide = index;
+
+    document.getElementById("slideNumber").textContent =
+        `${index + 1} / ${totalSlides}`;
+
+    document.getElementById("progressBar").style.width =
+        `${((index + 1) / totalSlides) * 100}%`;
+
+    document.getElementById("prevBtn").disabled =
+        index === 0;
+
+    document.getElementById("nextBtn").disabled =
+        index === totalSlides - 1;
+}
+
+function nextSlide() {
+    showSlide(currentSlide + 1);
+}
+
+function prevSlide() {
+    showSlide(currentSlide - 1);
+}
+
+document.addEventListener("keydown", function(event) {
+    if (event.key === "ArrowRight") nextSlide();
+    if (event.key === "ArrowLeft") prevSlide();
+});
+
+showSlide(0);
+</script>
+
 </body>
 </html>
